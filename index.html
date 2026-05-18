@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun, Cinta!</title>
+    <style>
+        /* --- Gaya Dasar & Tema Pink --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ffe5ec, #ffc2d1);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            color: #fb6f92;
+        }
+
+        /* --- Halaman Login --- */
+        .login-container {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(251, 111, 146, 0.2);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            transition: all 0.5s ease;
+            z-index: 10;
+        }
+
+        .login-container h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        .login-container input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #ffb3c6;
+            border-radius: 10px;
+            outline: none;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .login-container input:focus {
+            border-color: #fb6f92;
+        }
+
+        .login-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #fb6f92;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background 0.3s;
+        }
+
+        .login-container button:hover {
+            background-color: #ff5c8a;
+        }
+
+        /* Hint Username & Password Transparan */
+        .hint {
+            margin-top: 20px;
+            font-size: 12px;
+            color: rgba(251, 111, 146, 0.25); /* Sangat transparan */
+            user-select: none;
+        }
+
+        /* --- Konten Utama (Ucapan) --- */
+        .main-content {
+            display: none; /* Sembunyi di awal */
+            width: 90%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            max-height: 85vh;
+            overflow-y: auto;
+            animation: fadeIn 1.5s ease forwards;
+        }
+
+        .typing-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #ff5c8a;
+            white-space: pre-line;
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        /* --- Animasi Bunga Teratai Mekar --- */
+        .lotus-container {
+            display: none;
+            justify-content: center;
+            align-items: center;
+            height: 150px;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .lotus {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            transform: scale(0);
+            animation: bloom 3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        /* Kelopak bunga teratai */
+        .petal {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            width: 40px;
+            height: 70px;
+            background: linear-gradient(to top, #ffb3c6, #ff758f);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            transform-origin: bottom center;
+            opacity: 0.9;
+        }
+
+        /* Posisi kelopak melingkar sempurna */
+        .petal:nth-child(1) { transform: translate(-50%, 50%) rotate(0deg); }
+        .petal:nth-child(2) { transform: translate(-50%, 50%) rotate(30deg); }
+        .petal:nth-child(3) { transform: translate(-50%, 50%) rotate(-30deg); }
+        .petal:nth-child(4) { transform: translate(-50%, 50%) rotate(60deg); }
+        .petal:nth-child(5) { transform: translate(-50%, 50%) rotate(-60deg); }
+        .petal:nth-child(6) { transform: translate(-50%, 50%) rotate(90deg); }
+        .petal:nth-child(7) { transform: translate(-50%, 50%) rotate(-90deg); }
+        .petal:nth-child(8) { transform: translate(-50%, 50%) rotate(120deg); }
+        .petal:nth-child(9) { transform: translate(-50%, 50%) rotate(-120deg); }
+        .petal:nth-child(10) { transform: translate(-50%, 50%) rotate(150deg); }
+        .petal:nth-child(11) { transform: translate(-50%, 50%) rotate(-150deg); }
+        .petal:nth-child(12) { transform: translate(-50%, 50%) rotate(180deg); }
+
+        .lotus::after {
+            content: '';
+            position: absolute;
+            top: 35%;
+            left: 35%;
+            width: 30px;
+            height: 30px;
+            background: #ffe5ec;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #fff;
+        }
+
+        /* --- Animasi --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes bloom {
+            0% { transform: scale(0) rotate(0deg); }
+            100% { transform: scale(1.2) rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Musik Latar -->
+    <audio id="bg-music" loop>
+           <source src="happy-birthday.mp3" type="audio/mp3">
+
+    <!-- Halaman Login -->
+    <div class="login-container" id="loginBox">
+        <h2>Siapa nih yang buka? ❤️</h2>
+        <input type="text" id="username" placeholder="Masukkan Username" autocomplete="off">
+        <input type="password" id="password" placeholder="Masukkan Password">
+        <button onclick="cekLogin()">Masuk</button>
+        
+        <!-- Petunjuk Transparan -->
+        <div class="hint">
+            Petunjuk: User & Pass: ARYAGANTENG
+        </div>
+    </div>
+
+    <!-- Halaman Ucapan Utama -->
+    <div class="main-content" id="mainContent">
+        <!-- Nama Cinta sudah ditambahkan di sini -->
+        <h1 style="margin-bottom: 20px;">Selamat Ulang Tahun, Cinta! 🎉❤️</h1>
+        
+        <!-- Tempat Ucapan Romantis Panjang -->
+        <div class="typing-text" id="textUcapan"></div>
+
+        <!-- Wadah Bunga Teratai -->
+        <div class="lotus-container" id="lotusContainer">
+            <div class="lotus">
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+                <div class="petal"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Teks ucapan romantis yang panjang khusus untuk Cinta
+        const ucapan = `Selamat ulang tahun untuk orang yang paling berharga dalam hidupku, Cinta. ❤️
+
+Hari ini adalah hari yang sangat istimewa, bukan hanya untukmu, tapi juga untukku. Karena di hari inilah, dunia dianugerahi sosok yang begitu indah, tulus, dan penyayang sepertimu. 
+
+Terima kasih sudah lahir ke dunia ini, Cinta. Dan terima kasih karena telah memilih untuk berjalan bersamaku. Bersamamu, hari-hari yang biasa berubah menjadi luar biasa. Setiap tawa yang kita bagi, setiap cerita yang kita rangkai, adalah bagian terbaik dalam hidupku.
+
+Di usiamu yang baru ini, aku berdoa agar kamu selalu dilimpahi kebahagiaan, kesehatan, dan ketenangan hati. Semoga semua impian besar yang sedang kamu perjuangkan satu per satu dikabulkan oleh-Nya. Jangan pernah lelah menjadi orang baik ya, Sayang.
+
+Apapun yang akan kita hadapi di depan nanti, ingatlah kalau kamu tidak sendirian. Aku akan selalu ada di sini, menggenggam tanganmu, mendukungmu, dan mencintaimu di setiap detiknya.
+
+Sama seperti bunga teratai yang mekar dengan indahnya di bawah ini, semoga hidupmu juga selalu mekar dengan keindahan, kedamaian, dan cinta yang tak pernah pudar.
+
+I love you so much, Cinta... sekarang dan selamanya. Happy Birthday, Sayang! ✨🥰`;
+
+        function cekLogin() {
+            const user = document.getElementById('username').value.trim();
+            const pass = document.getElementById('password').value.trim();
+
+            if (user === "ARYAGANTENG" && pass === "ARYAGANTENG") {
+                document.getElementById('loginBox').style.display = 'none';
+                
+                const mainContent = document.getElementById('mainContent');
+                mainContent.style.display = 'block';
+                
+                const music = document.getElementById('bg-music');
+                music.play().catch(e => console.log("Musik otomatis tertahan browser."));
+
+                mulaiKetik();
+            } else {
+                alert("Username atau Password salah! Coba lihat petunjuk di bawah kotak ya~");
+            }
+        }
+
+        function mulaiKetik() {
+            let i = 0;
+            const kecepatan = 50; 
+            const wadahTeks = document.getElementById('textUcapan');
+
+            function ketik() {
+                if (i < ucapan.length) {
+                    wadahTeks.innerHTML += ucapan.charAt(i);
+                    i++;
+                    document.getElementById('mainContent').scrollTop = document.getElementById('mainContent').scrollHeight;
+                    setTimeout(ketik, kecepatan);
+                } else {
+                    tampilkanTeratai();
+                }
+            }
+            ketik();
+        }
+
+        function tampilkanTeratai() {
+            const lotusBox = document.getElementById('lotusContainer');
+            lotusBox.style.display = 'flex';
+            setTimeout(() => {
+                document.getElementById('mainContent').scrollTop = document.getElementById('mainContent').scrollHeight;
+            }, 200);
+        }
+    </script>
+</body>
+</html>
